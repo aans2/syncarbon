@@ -1,25 +1,63 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Third party libs
+import React from "react";
+import Auth from "use-eazy-auth";
+import { AuthRoute, GuestRoute } from "use-eazy-auth/routes";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
+
+// Internal imports
+import Login from "./Pages/Login/View";
+import { login, me, refresh } from "./Utils/Login";
+import Layout2 from "./Pages/Layout2/View";
+import Layout1 from "./Pages/Layout1/View";
+
+export function createList(quantity: number) {
+  if (quantity === 0) return [];
+  var list = [];
+  for (let i = 0; i < quantity; i++) {
+    list.push("a");
+  }
+  return list;
+}
+
+export var callAuthApiPromise: any;
+
+export var isDiferentUser: (stateUser: string) => boolean;
+
+export var getUser: () => string;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Auth
+      loginCall={login}
+      meCall={me}
+      refreshTokenCall={refresh}
+      render={(authActions, authState, userState) => {
+        callAuthApiPromise = authActions.callAuthApiPromise;
+        isDiferentUser = (stateUser: string) =>
+          stateUser !== (userState.user as any).id;
+        getUser = () => (userState.user as any).id as string;
+        return (
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout1 />} />
+              <Route path="/Layout2" element={<Layout2 />} />
+              {/* <GuestRoute path="/" element={<Login />} /> */}
+              {/* <GuestRoute path="/login"  element={<Login/>} /> */}
+              {/* <AuthRoute
+                path="/Layout1"
+                redirectTo="/login"
+                children={<Layout1 />}
+              /> */}
+            </Routes>
+          </Router>
+        );
+      }}
+    />
   );
 }
 

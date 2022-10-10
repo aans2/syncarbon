@@ -1,0 +1,15 @@
+export type ButtonColorsType =
+  | "primary"
+  | "primaryWhite10"
+  | "secondary"
+  | "secondaryWhite10"
+  | "secondaryWhite20"
+  | "secondaryWhite20SuccessHover"
+  | "secondaryWhite20ErrorHover"
+  | "secondaryWhite20WarningHover"
+  | "backgroundWhite10"
+  | "backgroundWhiteHover"
+  | "warning"
+  | "warningWhite10"
+  | "success"
+  | undefined;
