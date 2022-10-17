@@ -6,6 +6,7 @@ import ButtonSquared from "../ButtonSquared/View";
 import TurquesaAvatar from "../TurquesaAvatar/View";
 import ProfileDrawer from "./Components/ProfileDrawer/View";
 import { useFrameStyle } from "./Style";
+import Logomarca from "../../Assets/logomarca.svg";
 
 function Frame({ children }: { children: React.ReactChild }) {
   const style = useFrameStyle();
@@ -15,7 +16,7 @@ function Frame({ children }: { children: React.ReactChild }) {
   return (
     <>
       <div css={style.title}>
-        <img css={style.logo} alt="logomarca" />
+        <img css={style.logo} src={Logomarca} alt="logomarca" />
         <div>
           <ButtonSquared
             ccss={style.marginRight}

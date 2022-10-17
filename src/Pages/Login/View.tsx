@@ -19,6 +19,10 @@ import { loginPresenter } from "./Presenter";
 
 import { useLoginStyle } from "./Style";
 
+import { useNavigate } from "react-router-dom";
+
+import Logomarca from "../../Assets/logomarca.svg";
+
 function Login() {
   const style = useLoginStyle();
 
@@ -29,6 +33,8 @@ function Login() {
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
   const [recovery, setRecovery] = useState(false);
+
+  const navigate = useNavigate();
 
   const usernameRef = useRef<TextEntryWithErrorState>(
     initTextEntryWithErrorState
@@ -51,8 +57,33 @@ function Login() {
     }
   }, [loginError]);
 
-  const _login = () =>
-    loginPresenter(usernameRef, passwordRef, login, setError, setShowError);
+  const user1 = {
+    id: 1,
+    name: "Fulano",
+    setor: "1", //Combustivel
+    tipo: "1", //usuário comum
+  };
+
+  const user2 = {
+    id: 0,
+    name: "Sicrano",
+    setor: "0", //Todos
+    tipo: "0", //supervisor
+  };
+
+  const _login = () => {
+    // loginPresenter(usernameRef, passwordRef, login, setError, setShowError);
+
+    sessionStorage.setItem("user", JSON.stringify(user1));
+    let user = JSON.parse(sessionStorage.getItem("user") as any);
+
+    if (user["setor"] == 1) {
+      navigate("/setor");
+    }
+    if (user["setor"] == 0) {
+      navigate("/Todosetor");
+    }
+  };
 
   const onChangeInputs = () => {
     setShowError(false);
@@ -70,7 +101,7 @@ function Login() {
             <ButtonSquared ccss={style.backButton}>
               <ArrowBack />
             </ButtonSquared>
-            <img css={style.logo} alt="logomarca" />
+            <img css={style.logo} src={Logomarca} alt="logomarca" />
             <div css={style.placeholder} />
           </div>
           <LoginTextEntry

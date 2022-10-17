@@ -15,6 +15,9 @@ import { login, me, refresh } from "./Utils/Login";
 import Layout2 from "./Pages/Layout2/View";
 import Layout1 from "./Pages/Layout1/View";
 import Tabelas from "./Pages/Tabelas/View";
+import Setor from "./Pages/Setor/View";
+import Diesel from "./Pages/Diesel/View";
+import AllSetor from "./Pages/AllSetor/View";
 
 export function createList(quantity: number) {
   if (quantity === 0) return [];
@@ -45,7 +48,11 @@ function App() {
         return (
           <Router>
             <Routes>
-              <Route path="/" element={<Layout1 />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/Layout1" element={<Layout1 />} />
+              <Route path="/setor" element={<Setor />} />
+              <Route path="/Todosetor" element={<AllSetor />} />
+              <Route path="/setor/Diesel" element={<Diesel />} />
               <Route path="/Layout2" element={<Layout2 />} />
               <Route path="/Tabelas" element={<Tabelas />} />
 
