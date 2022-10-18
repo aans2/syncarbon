@@ -31,6 +31,13 @@ export function useLayout2Style() {
       label: label("panelOptions"),
       display: "flex",
     }),
+    divTable: css({
+      display: "flex",
+      flexDirection: "column",
+      color: "white",
+      label: label("panelOptions"),
+      marginBottom: "4rem",
+    }),
     selectYear: css({
       label: label("selectYear"),
       width: theme.spacing(16),

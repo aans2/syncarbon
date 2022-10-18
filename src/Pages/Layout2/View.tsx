@@ -38,67 +38,76 @@ function Layout2() {
     <Frame>
       <>
         <div css={frameStyle.panel}>
-          <div css={frameStyle.panelHead}>
-            <div css={frameStyle.panelHeadRow}>
-              <div css={style.panelOptions}>
-                <ButtonSquared
-                  onClick={() => history(-1)}
-                  ccss={style.backButton}
-                >
-                  <ArrowBack />
-                </ButtonSquared>
-                <TurquesaAvatar initials="HT" size={7} />
-                <Button
-                  onClick={() => setTesteDialog(true)}
-                  css={style.clientTextButton}
-                >
-                  <span css={frameStyle.panelHeadTitle}>SynCarbon</span>
-                </Button>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: "100%",
+            }}
+          >
+            <div css={frameStyle.panelHead}>
+              <div css={frameStyle.panelHeadRow}>
+                <div css={style.panelOptions}>
+                  <ButtonSquared
+                    onClick={() => history(-1)}
+                    ccss={style.backButton}
+                  >
+                    <ArrowBack />
+                  </ButtonSquared>
+                  <TurquesaAvatar initials="HT" size={7} />
+                  <Button
+                    onClick={() => setTesteDialog(true)}
+                    css={style.clientTextButton}
+                  >
+                    <span css={frameStyle.panelHeadTitle}>SynCarbon</span>
+                  </Button>
+                </div>
+                <div css={style.panelOptions}>
+                  <FrameSelect
+                    ccss={style.selectMonth}
+                    initialValue={"Julho"}
+                    heightOfFixContent={112}
+                    options={[
+                      "Dezembro",
+                      "Novembro",
+                      "Outubro",
+                      "Setembro",
+                      "Agosto",
+                      "Julho",
+                      "Junho",
+                      "Maio",
+                      "Abril",
+                      "Março",
+                      "Fevereiro",
+                      "Janeiro",
+                    ]}
+                  />
+                  <div css={frameStyle.panelHeadSpacer} />
+                  <FrameSelect
+                    ccss={style.selectYear}
+                    initialValue={"2022"}
+                    heightOfFixContent={112}
+                    options={["2022", "2021", "2020"]}
+                  />
+                  <div css={frameStyle.panelHeadSpacer} />
+                  <TextEntry
+                    placeholder={showLayout2s ? "Buscar Ano" : "Buscar Mês"}
+                    ccss={frameStyle.textEntry}
+                    searchIcon
+                  />
+                </div>
               </div>
-              <div css={style.panelOptions}>
-                <FrameSelect
-                  ccss={style.selectMonth}
-                  initialValue={"Julho"}
-                  heightOfFixContent={112}
-                  options={[
-                    "Dezembro",
-                    "Novembro",
-                    "Outubro",
-                    "Setembro",
-                    "Agosto",
-                    "Julho",
-                    "Junho",
-                    "Maio",
-                    "Abril",
-                    "Março",
-                    "Fevereiro",
-                    "Janeiro",
-                  ]}
-                />
-                <div css={frameStyle.panelHeadSpacer} />
-                <FrameSelect
-                  ccss={style.selectYear}
-                  initialValue={"2022"}
-                  heightOfFixContent={112}
-                  options={["2022", "2021", "2020"]}
-                />
-                <div css={frameStyle.panelHeadSpacer} />
-                <TextEntry
-                  placeholder={showLayout2s ? "Buscar Ano" : "Buscar Mês"}
-                  ccss={frameStyle.textEntry}
-                  searchIcon
-                />
-              </div>
+              <div css={frameStyle.panelSeparator} />
             </div>
-            <div css={frameStyle.panelSeparator} />
+            <SideBar
+              chooseDrawer={chooseDrawer}
+              showLayout2s={showLayout2s}
+              changeLayout2PanelRef={changeLayout2PanelRef}
+              setRemoveDialog={() => setRemoveDialog(true)}
+            />
           </div>
         </div>
-        <SideBar
-          chooseDrawer={chooseDrawer}
-          showLayout2s={showLayout2s}
-          changeLayout2PanelRef={changeLayout2PanelRef}
-          setRemoveDialog={() => setRemoveDialog(true)}
-        />
         <ChangeLayout2Panel
           showLayout2s={showLayout2s}
           setShowLayout2s={setShowLayout2s}

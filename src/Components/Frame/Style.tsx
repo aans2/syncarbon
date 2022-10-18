@@ -63,6 +63,8 @@ export function useFrameStyle() {
       height: "min-content",
     }),
     panelHead: css({
+      height: "fit-content",
+      width: "100%",
       label: label("panelHead"),
       display: "flex",
       flexDirection: "column",

@@ -15,6 +15,7 @@ import { login, me, refresh } from "./Utils/Login";
 import Layout2 from "./Pages/Layout2/View";
 import Layout1 from "./Pages/Layout1/View";
 import Tabelas from "./Pages/Tabelas/View";
+import Tables from "./Pages/TablePaginate/Tables";
 
 export function createList(quantity: number) {
   if (quantity === 0) return [];
@@ -48,6 +49,7 @@ function App() {
               <Route path="/" element={<Layout1 />} />
               <Route path="/Layout2" element={<Layout2 />} />
               <Route path="/Tabelas" element={<Tabelas />} />
+              <Route path="/Tables" element={<Tables />} />
 
               {/* <GuestRoute path="/" element={<Login />} /> */}
               {/* <GuestRoute path="/login"  element={<Login/>} /> */}
