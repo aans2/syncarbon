@@ -35,6 +35,22 @@ function BlockGrid({
     inputRef.current.click();
   };
 
+  //rota downloadPlanilha
+  //enviar tokenUsuario, Diesel, aberto/fechado
+  // recebe arquivo
+
+  //rota visualizarPlanilha
+  //enviar tokenUsuario, Diesel, Aberto/fechado
+  //recebe json
+
+  //rota, /arquivoConsumo
+  //0 é aberto e 1 é fechado
+  //TODO Deve enviar arquivo, mes, ano, 0/1
+  const sendFileFechado = () => {
+    console.log("Teste",);
+    
+  }
+
   const handleFileChange = (event: any) => {
     const fileObj = event.target.files && event.target.files[0];
     if (!fileObj) {
@@ -49,6 +65,7 @@ function BlockGrid({
 
     console.log(fileObj);
     console.log(fileObj.name);
+
   };
 
   useEffect(() => {
