@@ -1,3 +1,7 @@
+import { callAuthApiPromise } from "../App";
+import { ajax } from "rxjs/ajax";
+
+
 // Converte tipos de pendência para String.
 export function IssueToString(issue: number) {
   if (issue === 0) {
@@ -29,3 +33,28 @@ export const mobileSettings = () => {
       "height=device-height, width=device-width, initial-scale=1"
     );
 };
+
+export async function callPromiseWrapper(url: string, body?: any) {
+  return (
+    await callAuthApiPromise(
+      (token: string) => () =>
+        body
+          ? ajax({
+              url: url,
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(body),
+            }).toPromise()
+          : ajax({
+              url: url,
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }).toPromise()
+    )
+  ).response;
+}

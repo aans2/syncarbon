@@ -7,9 +7,20 @@ import { Button } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { createList } from "../../App";
 import { useNavigate } from "react-router-dom";
-import { getSetorInfo } from "./Presenter";
+// import { getSetorInfo } from "./Presenter";
+import { SetorModel } from "../../Global/Models/Setor/SetorModel";
+import { getSetor } from "./Presenter";
+
 
 function Setor() {
+  
+  const [setor, setSetores] = useState<SetorModel>(undefined as any);
+
+  useEffect(() => {
+    getSetor().then((data) => setSetores(data));
+    
+  }, []);
+
   const history = useNavigate();
 
   const style = useSetorStyle();
@@ -17,24 +28,26 @@ function Setor() {
 
   const [searchText, setSearchTest] = useState("");
 
-  const searchRef =
-    useRef<React.Dispatch<React.SetStateAction<string>>>(setSearchTest);
+  // const searchRef =
+  //   useRef<React.Dispatch<React.SetStateAction<string>>>(setSearchTest);
 
-  let user = JSON.parse(sessionStorage.getItem("user") as any);
-  const info = JSON.parse(getSetorInfo(user["id"]));
+  // let user = JSON.parse(sessionStorage.getItem("user") as any);
+  // const info = JSON.parse(getSetorInfo(user["id"]));
 
   return (
     <Frame>
       <div css={frameStyle.panel}>
         <div css={frameStyle.panelHead}>
           <div css={frameStyle.panelHeadRow}>
-            <span css={frameStyle.panelHeadTitle}>{info.nome}</span>
+            {/* <span css={frameStyle.panelHeadTitle}>{info.nome}</span> */}
           </div>
           <div css={frameStyle.panelSeparator} />
         </div>
         <div css={frameStyle.panelShower}>
           <div css={[frameStyle.panelContent, style.grid]}>
-            {info.setor.map((item: any, index: any) => (
+            {setor == undefined ? (
+              <div>Não Existe setor Cadastrado</div>
+            ) : (setor.name.map((item: any, index: any) => (
               <Button
                 onClick={() => history("/setor/Diesel/")}
                 key={"anoCard-" + index.toString()}
@@ -51,7 +64,7 @@ function Setor() {
                   às <span css={style.cardDateBold}>09:42</span>
                 </div>
               </Button>
-            ))}
+            )) )}
           </div>
         </div>
       </div>
