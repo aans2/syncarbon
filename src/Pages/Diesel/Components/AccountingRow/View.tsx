@@ -14,7 +14,7 @@ function AccountingRow({
   // photosNumber,
   accountingNotifyRef,
 }: {
-  number: string;
+  number: number;
   name: string;
   // photosNumber: number;
   accountingNotifyRef?: React.MutableRefObject<
@@ -88,6 +88,7 @@ function AccountingRow({
           {showGrid ? (
             list.length > 0 ? (
               <ShowAccountingsBlocks
+                number={number}
                 list={list}
                 gridRef={gridRef}
                 notifyRef={notifyRef}

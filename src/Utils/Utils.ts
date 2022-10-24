@@ -1,7 +1,6 @@
 import { callAuthApiPromise } from "../App";
 import { ajax } from "rxjs/ajax";
 
-
 // Converte tipos de pendência para String.
 export function IssueToString(issue: number) {
   if (issue === 0) {

@@ -7,7 +7,7 @@ import BlockGrid from "../BlockGrid/View";
 
 function ShowMonthsBlocks({ showMonths }: { showMonths: boolean }) {
   const list = createList(12);
-  const blist = createList(32);
+  const blist = createList(12);
 
   const options = [
     "Janeiro",
@@ -32,7 +32,7 @@ function ShowMonthsBlocks({ showMonths }: { showMonths: boolean }) {
           options.map((item, index) => (
             <AccountingRow
               key={"AccountingRow-" + index.toString()}
-              number=""
+              number={index}
               name={item}
               // photosNumber={12}
             />

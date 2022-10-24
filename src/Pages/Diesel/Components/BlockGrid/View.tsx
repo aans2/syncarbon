@@ -8,12 +8,16 @@ import Tabelas from "../../../Tabelas/View";
 import { useDieselStyle } from "../../Style";
 import { useLayout2RowStyle } from "../Layout2Row/Style";
 import { useBlockGridStyle } from "./Style";
+import { setCombustivel, setCombustivelMES } from "./Presenter";
+import { ajax } from "rxjs/ajax";
 
 function BlockGrid({
+  number,
   list,
   gridRef,
   notifyRef,
 }: {
+  number?: number;
   list: string[];
   gridRef?: React.RefObject<HTMLDivElement>;
   notifyRef?: React.MutableRefObject<
@@ -22,6 +26,7 @@ function BlockGrid({
 }) {
   const [searchText, setSearchText] = useState("");
   const [openDetails, setOpenDetails] = useState(false);
+  const [mes, setMes] = useState(0);
 
   const style = useBlockGridStyle();
   const Layout2Style = useDieselStyle();
@@ -31,7 +36,9 @@ function BlockGrid({
 
   const inputRef = useRef(null as any);
 
-  const handleClick = () => {
+  const handleClick = (valor: any) => {
+    setMes(valor + 1);
+    // console.log("event", mes);
     inputRef.current.click();
   };
 
@@ -47,9 +54,8 @@ function BlockGrid({
   //0 é aberto e 1 é fechado
   //TODO Deve enviar arquivo, mes, ano, 0/1
   const sendFileFechado = () => {
-    console.log("Teste",);
-    
-  }
+    console.log("Teste");
+  };
 
   const handleFileChange = (event: any) => {
     const fileObj = event.target.files && event.target.files[0];
@@ -57,15 +63,17 @@ function BlockGrid({
       return;
     }
 
-    console.log("fileObj is", fileObj);
-
-    event.target.value = null;
-
-    console.log(event.target.files);
-
-    console.log(fileObj);
-    console.log(fileObj.name);
-
+    // setCombustivel(fileObj, mes);
+    // setCombustivelMES(mes);
+    ajax({
+      url: "http://localhost:8000/api/combustivel/add",
+      method: "POST",
+      headers: {
+        // Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ mes: mes }),
+    }).toPromise();
   };
 
   useEffect(() => {
@@ -110,34 +118,24 @@ function BlockGrid({
               id=""
               onChange={handleFileChange}
             />
-            <button onClick={handleClick}>
+            {/* <button onClick={handleClick}>
               Adicionar Relatorio Entrada Diesel
             </button>
             <button onClick={handleClick}>
               Adicionar Relatorio Entrada Arla
-            </button>
-            <button onClick={handleClick}>
+            </button> */}
+            {/* <button onClick={handleClick}>
               Adicionar Relatorio Consumo Aberto
-            </button>
-            <button onClick={handleClick}>
+            </button> */}
+            <button onClick={(event) => handleClick(number)}>
               Adicionar Relatorio Consumo Fechado
             </button>
-            <button onClick={handleClick}>
+            {/* <button onClick={handleClick}>
               Adicionar Entrada Estoque Remanescente
-            </button>
-            <button onClick={() => setOpenDetails(true)}>
-              Visualizar Planilha
-            </button>
+            </button> */}
           </div>
         )}
       </div>
-      <Dialog
-        css={Layout2Style.paper}
-        open={openDetails}
-        onClose={() => setOpenDetails(false)}
-      >
-        <Tabelas />
-      </Dialog>
     </div>
   );
 }

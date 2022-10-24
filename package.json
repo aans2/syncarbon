@@ -51,5 +51,9 @@
   },
   "devDependencies": {
     "@types/react-avatar-editor": "^13.0.0"
-  }
+  },
+  "homepage": ".",
+  "_proxy": "http://localhost:8000/",
+  "__proxy": "http://127.0.0.1:8000/",
+  "proxy": "http://127.0.0.1:8000/"
 }

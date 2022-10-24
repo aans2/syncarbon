@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { ArrowBack } from "@mui/icons-material";
-import { Button } from "@mui/material";
+import { Button, Dialog } from "@mui/material";
 import { useState } from "react";
 import { useRef } from "react";
 import { useFrameStyle } from "../../Components/Frame/Style";
@@ -16,6 +16,7 @@ import TurquesaAvatar from "../../Components/TurquesaAvatar/View";
 import ButtonSquared from "../../Components/ButtonSquared/View";
 import { useNavigate } from "react-router-dom";
 import ShowMonthsBlocks from "../Diesel/Components/ShowMonthsBlocks/View";
+import Tabelas from "../Tabelas/View";
 
 function Diesel() {
   const history = useNavigate();
@@ -35,6 +36,8 @@ function Diesel() {
 
   const chooseDrawer = (choose: Layout2DrawerOptions) =>
     choosedDrawerRef.current(choose);
+
+  const [openDetails, setOpenDetails] = useState(false);
 
   return (
     <Frame>
@@ -63,9 +66,13 @@ function Diesel() {
           <div css={frameStyle.panelShower}>
             <div css={frameStyle.panelContent}>
               <ShowMonthsBlocks showMonths={showMonths} />
+              <button onClick={() => setOpenDetails(true)}>
+                Visualizar Planilha
+              </button>
             </div>
           </div>
         </div>
+
         <SideBar
           chooseDrawer={chooseDrawer}
           showLayout2s={showLayout2s}
@@ -78,6 +85,13 @@ function Diesel() {
           changeLayout2PanelRef={changeLayout2PanelRef}
         />
         <Layout2Drawer choosedDrawerRef={choosedDrawerRef} />
+        <Dialog
+          css={style.paper}
+          open={openDetails}
+          onClose={() => setOpenDetails(false)}
+        >
+          <Tabelas />
+        </Dialog>
       </>
     </Frame>
   );
